@@ -155,6 +155,12 @@ async def check_smtp(email: str, mx_records: List[str]) -> tuple[str, str]:
 
 # --- 4. API Endpoints ---
 
+@app.get("/", include_in_schema=False)
+async def health_check():
+    """Endpoint to check if the API is running."""
+    return {"status": "ok", "service": "Email Validator API", "version": app.version}
+
+
 @app.post("/validate", response_model=ValidationResult)
 async def validate_email(
     request: EmailRequest,
@@ -222,5 +228,5 @@ async def validate_email(
     if not result["message"]:
         result["message"] = "Basic validation successful. Domain is valid, but mailbox existence was not verified (SMTP check skipped)."
         
-        
+
     return result
