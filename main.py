@@ -21,7 +21,7 @@ def load_blacklist(file_path: str) -> set[str]:
         print(f"Error loading blacklist: {e}")
         return set()
 
-BLACKLIST_FILE = "domain_blacklist.txt"
+BLACKLIST_FILE = "domains_blacklist.txt"
 BLACKLISTED_DOMAINS = load_blacklist(BLACKLIST_FILE)
 
 # Defined list of valid TLDs for stricter format checking
@@ -221,5 +221,6 @@ async def validate_email(
     # Default message if SMTP check was skipped
     if not result["message"]:
         result["message"] = "Basic validation successful. Domain is valid, but mailbox existence was not verified (SMTP check skipped)."
+        
         
     return result
